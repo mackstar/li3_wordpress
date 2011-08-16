@@ -2,7 +2,7 @@
 
 <?php if (have_posts()): ?>
 	<?php while (have_posts()): ?>
-		<?php the_post(): ?>
+		<?php the_post(); ?>
 		<h2 id="post-<?php the_ID(); ?>">
 			<a href="<?php the_permalink() ?>" title="Permanent Link to <?php the_title_attribute(); ?>">
 				<?php the_title(); ?>

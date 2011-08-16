@@ -11,6 +11,10 @@ class BlogController extends \lithium\action\Controller {
 		if (isset($this->request->query['s'])) {
 			$conditions['s'] = $this->request->query['s'];
 		}
+		if (isset($this->request->month) && isset($this->request->year)) {
+			$conditions['monthnum'] = $this->request->month;
+			$conditions['year'] = $this->request->year;
+		}
 		if (isset($this->request->category)) {
 			$conditions['category_name'] = $this->request->category;
 			$conditions['posts_per_page'] = -1;

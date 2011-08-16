@@ -8,34 +8,57 @@ class Wordpress extends \lithium\template\Helper {
 	
 	protected static $_elements;
 	
-	
 	public function menu($args = array()) {
-	}
-	
-	public function comments() {}
-	
-	public function commentForm(){}
-	
-	public function archives(){}
-	
-	public function categories(){}
-	
-	public function searchForm() {
-		return get_search_form(false);
 	}
 	
 	
 	/**
-	 * A helper which 
+	 * Archives helper
 	 *
-	 * @param string
-	 * @return string Rendered comments_list element.
+	 * @return string Rendered archives element.
 	 */
-	public function area($area) {
-		$content = get_post_custom_values($area, get_the_ID());
+	public function archives(){
+		return $this->_renderView(__FUNCTION__);
+	}
+	
+	/**
+	 * Categories helper
+	 *
+	 * @return string Rendered categories element.
+	 */
+	public function categories(){
+		return $this->_renderView(__FUNCTION__);
+	}
+
+	/**
+	 * Search Form helper
+	 *
+	 * @return string Rendered search_form element.
+	 */
+	public function searchForm() {
+		return get_search_form(false);
+	}
+
+	/**
+	 * A helper which gets contents from a custom field
+	 *
+	 * @param string The name of custom field
+	 * @return string The custom field content.
+	 */
+	public function field($field) {
+		$content = get_post_custom_values($field, get_the_ID());
 		return apply_filters('the_content', $content[0]);
 	}
 	
+	/**
+	 * Sidebar helper which contains archive and categories.
+	 *
+	 * @return string Rendered site element.
+	 */
+	public function sidebar() {
+		return $this->_renderView(__FUNCTION__);
+	}
+
 	/**
 	 * Comments List helper.
 	 *
@@ -77,7 +100,8 @@ class Wordpress extends \lithium\template\Helper {
 		$view = $this->_context->view();
 		return $view->render(
 			array('element'=>Inflector::underscore($function)),
-			$args
+			$args, 
+			array('library' => 'li3_wordpress')
 		);
 	}
 	
