@@ -3,6 +3,8 @@
 use \lithium\net\http\Router;
 use \lithium\core\Environment;
 
+Router::connect('/categories/{:category}/page/{:args}', array('Blog::index', 'library' => 'li3_wordpress'));
+Router::connect('/categories/{:category}/{:args}', array('Blog::index', 'library' => 'li3_wordpress'));
 Router::connect('/blog/page/{:args}', array('Blog::index', 'library' => 'li3_wordpress'));
 Router::connect('/blog/{:args}', array('Blog::index', 'library' => 'li3_wordpress'));
 Router::connect('/archives/{:args}', array('Blog::view', 'library' => 'li3_wordpress'));
