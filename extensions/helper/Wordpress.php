@@ -4,13 +4,23 @@ namespace li3_wordpress\extensions\helper;
 
 use \lithium\util\Inflector;
 
+/**
+ * List of helpers for the plugin
+ *
+ */
 class Wordpress extends \lithium\template\Helper {
 	
 	protected static $_elements;
+
 	
+	/**
+	 * Menu helper
+	 *
+	 * @return string Rendered menu element.
+	 */
 	public function menu($args = array()) {
 	}
-	
+
 	
 	/**
 	 * Archives helper
@@ -89,15 +99,31 @@ class Wordpress extends \lithium\template\Helper {
 		$this->_renderView(__FUNCTION__, compact($comments));
 	}
 	
+
+	
 	/**
 	 * A protected method that passes function name and arguments to render.
+	 *
+	 * I have also included a call for a new View instance should one not be available.
+	 * This is for when you want to call helpers directly outside of a view context.
+	 * 
+	 * @todo Make the element available as an option, along with other template paths
+	 *       so that users can specify their own.
 	 *
 	 * @param string $function CamelCased function name, inflects to underline element name
 	 * @param args $args Array of arguments needing to be passed to element
 	 * @return string Rendered view from helper method.
 	 */
 	protected function _renderView($function, $args = array()){
-		$view = $this->_context->view();
+		
+		if (!is_object($this->_context)) {
+			$view = new \lithium\template\View(array('paths' => array(
+				'element' => '{:library}/views/elements/{:template}.{:type}.php'
+			)));
+		}
+		else {
+			$view = $this->_context->view();
+		}	
 		return $view->render(
 			array('element'=>Inflector::underscore($function)),
 			$args, 

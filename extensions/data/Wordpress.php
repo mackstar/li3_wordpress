@@ -4,7 +4,10 @@ namespace li3_wordpress\extensions\data;
 
 use lithium\core\ConfigException;
 
-
+/**
+ * Mainly a placeholder for configuration
+ *
+ */
 class Wordpress extends \lithium\core\StaticObject {
 	
 	/*
